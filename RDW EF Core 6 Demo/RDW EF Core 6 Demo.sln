@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SV.RDW.Entities", "SV.RDW.Entities\SV.RDW.Entities.csproj", "{B9E3C873-86DA-4E8C-ADF3-B4F36172AAC3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. Entities", "1. Entities", "{80F87B4C-D842-4C82-A041-945ADE58695E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Migrations", "2. Migrations", "{29F79F17-CEED-4A36-AD63-511943741275}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Console App", "4. Console App", "{D88F0352-43C2-48D3-ADF2-D883D309D750}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SV.RDW.Demo.App", "SV.RDW.Demo.App\SV.RDW.Demo.App.csproj", "{8A984453-2A89-4B6B-A327-26B462AD2DDB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. DbUp", "3. DbUp", "{46503673-1420-4A5A-9772-BCB00C3E0E7A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B9E3C873-86DA-4E8C-ADF3-B4F36172AAC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9E3C873-86DA-4E8C-ADF3-B4F36172AAC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9E3C873-86DA-4E8C-ADF3-B4F36172AAC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9E3C873-86DA-4E8C-ADF3-B4F36172AAC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A984453-2A89-4B6B-A327-26B462AD2DDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A984453-2A89-4B6B-A327-26B462AD2DDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A984453-2A89-4B6B-A327-26B462AD2DDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A984453-2A89-4B6B-A327-26B462AD2DDB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B9E3C873-86DA-4E8C-ADF3-B4F36172AAC3} = {80F87B4C-D842-4C82-A041-945ADE58695E}
+		{8A984453-2A89-4B6B-A327-26B462AD2DDB} = {D88F0352-43C2-48D3-ADF2-D883D309D750}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8775F148-E7E9-425A-93DE-29E947F5E552}
+	EndGlobalSection
+EndGlobal
