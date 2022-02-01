@@ -4,13 +4,13 @@ using SV.RDW.Entities;
 
 namespace SV.RDW.Data.Layer;
 
-public partial class RdwContext : DbContext
+public partial class BaseContext : DbContext
 {
-	public RdwContext()
+	public BaseContext()
 	{
 	}
 
-	public RdwContext(DbContextOptions<RdwContext> options)
+	public BaseContext(DbContextOptions<BaseContext> options)
 		: base(options)
 	{
 	}
@@ -37,7 +37,7 @@ public partial class RdwContext : DbContext
 		// default settings
 		SetDefaults(modelBuilder);
 
-		modelBuilder.ApplyConfigurationsFromAssembly(assembly: typeof(RdwContext).Assembly);
+		modelBuilder.ApplyConfigurationsFromAssembly(assembly: typeof(BaseContext).Assembly);
 	}
 
 	protected void SetDefaults(ModelBuilder modelBuilder)

@@ -1,15 +1,38 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net6.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
-  </ItemGroup>
+	<ItemGroup>
+	  <None Remove="appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Serilog" Version="2.10.0" />
+		<PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.1">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\SV.RDW.Data.Entities\SV.RDW.Data.Entities.csproj" />
+	  <ProjectReference Include="..\SV.RDW.Data.Layer\SV.RDW.Data.Layer.csproj" />
+	  <ProjectReference Include="..\SV.RDW.Migrations.MySQL\SV.RDW.Migrations.MySQL.csproj" />
+	  <ProjectReference Include="..\SV.RDW.Migrations.PostgreSQL\SV.RDW.Migrations.PostgreSQL.csproj" />
+	</ItemGroup>
 
 </Project>

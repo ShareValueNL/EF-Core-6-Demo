@@ -8,6 +8,12 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Content Include="..\SV.RDW.DbUp.PostgreSQL\appsettings.json" Link="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="6.0.3" />
 	</ItemGroup>
 
