@@ -15,6 +15,11 @@ public partial class BaseContext : DbContext
 	{
 	}
 
+	protected BaseContext(DbContextOptions options)
+	   : base(options)
+	{
+	}
+
 	public virtual DbSet<Voertuig> Voertuigen { get; set; } = null!;
 
 	public virtual DbSet<VoertuigSoort> VoertuigSoorten { get; set; } = null!;
