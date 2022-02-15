@@ -10,6 +10,17 @@ public class MySQLContext : BaseContext
 	{
 	}
 
+	protected override void OnModelCreating(ModelBuilder modelBuilder)
+	{
+		base.OnModelCreating(modelBuilder);
 
+		var voertuigBuilder = modelBuilder.Entity<Voertuig>();
+		voertuigBuilder.Property(e => e.Tenaamstelling).HasColumnType("DATE");
+		voertuigBuilder.Property(e => e.VervalDatumAPK).HasColumnType("DATE");
+		voertuigBuilder.Property(e => e.EersteToelating).HasColumnType("DATE");
+
+		var importBuilder = modelBuilder.Entity<Import>();
+		importBuilder.Property(e => e.EersteToelatingDatum).HasColumnType("DATE");
+	}
 }
 // add-migration Initieel -a SV.RDW.Data.Layer -s SV.RDW.Apps.MigrationHandler -p SV.RDW.Migrations.MySQL -c SV.RDW.Migrations.MySQL.MySQLContext

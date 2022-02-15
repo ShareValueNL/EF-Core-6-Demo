@@ -1,6 +1,4 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Microsoft.EntityFrameworkCore;
 using SV.RDW.Migrations.MySQL;
 
 public class Program
@@ -18,7 +16,21 @@ public class Program
 public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
-        => services.AddDbContext<MySQLContext>();
+    {
+        var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true);
+        var config = builder.Build();
+        string connectionStringPostgres = config["ConnectionStrings:Postgres"];
+        string connectionStringMySql = config["ConnectionStrings:mysql"];
+
+
+        // services.AddDbContext<PostgreSQLContext>();
+        services.AddDbContext<MySQLContext>(options =>
+           {
+               options.UseMySql(ServerVersion.AutoDetect(connectionStringMySql));
+           });
+        
+    }
+
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {

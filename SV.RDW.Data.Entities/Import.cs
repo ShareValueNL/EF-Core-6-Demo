@@ -6,7 +6,7 @@ public class Import
 
     public int Id { get; set; }
 
-    public DateOnly EersteToelatingDatum { get; set; }
+    public DateTime EersteToelatingDatum { get; set; }
 
     public int TotaalImport { get; set; }
 

@@ -26,6 +26,6 @@ var serviceProvider = new ServiceCollection()
            .AddNpgsql<PostgreSQLContext>(connectionStringPostgres)
            .AddDbContext<MySQLContext>(options =>
 		   {
-               options.UseMySQL(connectionStringMySql);
+               options.UseMySql(ServerVersion.AutoDetect(connectionStringMySql));
 		   })
            .BuildServiceProvider();

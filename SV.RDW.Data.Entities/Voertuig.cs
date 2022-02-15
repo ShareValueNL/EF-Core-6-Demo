@@ -18,11 +18,11 @@ public class Voertuig
     public int HandelsbenamingId { get; set; }
     public Handelsbenaming Handelsbenaming { get; set; } = null!;
 
-    public DateOnly? VervalDatumAPK { get; set; }
+    public DateTime? VervalDatumAPK { get; set; }
 
-    public DateOnly Tenaamstelling { get; set; }
+    public DateTime Tenaamstelling { get; set; }
 
-    public DateOnly EersteToelating { get; set; }
+    public DateTime EersteToelating { get; set; }
 
     [MaxLength(50)]
     public string? Inrichting { get; set; }

@@ -8,13 +8,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Compile Include="..\SV.RDW.Data.Layer\_Global.cs" Link="_Global.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <Content Include="..\SV.RDW.DbUp.MySQL\appsettings.json" Link="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MySql.EntityFrameworkCore" Version="6.0.0" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.1" />
+		<PackageReference Include="Pomelo.EntityFrameworkCore.MySql.Design" Version="1.1.2" />
 	</ItemGroup>
 
 	<ItemGroup>
