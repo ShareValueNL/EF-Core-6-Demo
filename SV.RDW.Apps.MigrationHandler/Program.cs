@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SV.RDW.Migrations.MySQL;
+using SV.RDW.Migrations.PostgreSQL;
 
 public class Program
 {
@@ -19,16 +20,18 @@ public class Startup
     {
         var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true);
         var config = builder.Build();
-        string connectionStringPostgres = config["ConnectionStrings:Postgres"];
+        string connectionStringPostgres = config["ConnectionStrings:postgres"];
         string connectionStringMySql = config["ConnectionStrings:mysql"];
 
-
-        // services.AddDbContext<PostgreSQLContext>();
+        services.AddDbContext<PostgreSQLContext>(options =>
+        {
+            options.UseNpgsql(connectionStringPostgres);
+        });
         services.AddDbContext<MySQLContext>(options =>
            {
                options.UseMySql(ServerVersion.AutoDetect(connectionStringMySql));
            });
-        
+
     }
 
 

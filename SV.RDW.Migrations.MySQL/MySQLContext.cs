@@ -23,4 +23,3 @@ public class MySQLContext : BaseContext
 		importBuilder.Property(e => e.EersteToelatingDatum).HasColumnType("DATE");
 	}
 }
-// add-migration Initieel -a SV.RDW.Data.Layer -s SV.RDW.Apps.MigrationHandler -p SV.RDW.Migrations.MySQL -c SV.RDW.Migrations.MySQL.MySQLContext
