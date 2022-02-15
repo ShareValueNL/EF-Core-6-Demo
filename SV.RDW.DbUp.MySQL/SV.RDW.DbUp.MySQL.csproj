@@ -11,13 +11,13 @@
 	  <EmbeddedResource Include="Program.cs">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </EmbeddedResource>
+	  <EmbeddedResource Include="Scripts\20220214204019_Initieel.sql" />
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Resource Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Resource>
-	  <Resource Include="Scripts\20220214204019_Initieel.sql" />
 	</ItemGroup>
 
 	<ItemGroup>
