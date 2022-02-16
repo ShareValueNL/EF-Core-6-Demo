@@ -1,4 +1,4 @@
-﻿namespace SV.RDW.Entities;
+﻿namespace SV.RDW.Data.Entities;
 
 [Table("Imports")]
 public class Import

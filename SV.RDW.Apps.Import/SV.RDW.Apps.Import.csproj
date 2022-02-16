@@ -15,6 +15,8 @@
     <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SV.RDW.Data.Entities.ImportJson\SV.RDW.Data.Entities.ImportJson.csproj" />
+    <ProjectReference Include="..\SV.RDW.Data.Entities.Import\SV.RDW.Data.Entities.ImportJson.csproj" />
     <ProjectReference Include="..\SV.RDW.Data.Entities\SV.RDW.Data.Entities.csproj" />
     <ProjectReference Include="..\SV.RDW.Migrations.MySQL\SV.RDW.Migrations.MySQL.csproj" />
   </ItemGroup>

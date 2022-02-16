@@ -1,4 +1,4 @@
-﻿namespace SV.RDW.Entities;
+﻿namespace SV.RDW.Data.Entities;
 
 [Table("Handelsbenamingen")]
 public class Handelsbenaming

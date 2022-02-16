@@ -1,4 +1,11 @@
-﻿using SV.RDW.Entities;
+﻿using SV.RDW.Data.Entities.ImportJson;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Json;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace SV.RDW.Apps.Import
 {
@@ -16,7 +23,7 @@ namespace SV.RDW.Apps.Import
         {
             var offset = 0;
             var responseEmpty = false;
-            List<Voertuig> vehicles = new List<Voertuig>();
+            var vehicles = new List<Voertuig>();
 
             while(!responseEmpty)
             {
@@ -33,10 +40,13 @@ namespace SV.RDW.Apps.Import
 
         public async Task<List<Voertuig>> GetVehicles(int offset, DateTime firstAdmission)
         {
-            var response = await GetAsync($"m9d7-ebf2.json?$limit={_limit}&$offset={offset}&datum_eerste_toelating={firstAdmission:yyyyMMdd}");
-            var content = await response.Content.ReadAsStringAsync();
+            PropertyInfo[] propertyInfos = typeof(Voertuig).GetProperties();
+            var select = string.Join(",", propertyInfos.Select(x => x.Name));
 
-            return await response.Content.ReadFromJsonAsync<List<Voertuig>>();
+            var response = await GetAsync($"m9d7-ebf2.json?$select={select}&$limit={_limit}&$offset={offset}&datum_eerste_toelating={firstAdmission:yyyyMMdd}");
+            var result = await response.Content.ReadFromJsonAsync<List<Voertuig>>();
+            
+            return result;
         }
     }
 }

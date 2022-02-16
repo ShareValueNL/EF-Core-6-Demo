@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using SV.RDW.Entities;
+using SV.RDW.Data.Entities;
 
 namespace SV.RDW.Data.Layer;
 
