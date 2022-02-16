@@ -27,7 +27,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SV.RDW.Data.Layer", "SV.RDW
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SV.RDW.Apps.Import", "SV.RDW.Apps.Import\SV.RDW.Apps.Import.csproj", "{CBC5D8CC-8841-415C-8A0E-7E956E7FBED4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SV.RDW.Apps.MigrationHandler", "SV.RDW.Apps.MigrationHandler\SV.RDW.Apps.MigrationHandler.csproj", "{B4577809-51BF-4A83-B477-5AF597CC43CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SV.RDW.Apps.MigrationHandler", "SV.RDW.Apps.MigrationHandler\SV.RDW.Apps.MigrationHandler.csproj", "{B4577809-51BF-4A83-B477-5AF597CC43CF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Test", "5. Test", "{43F04AAB-203F-4983-A1DA-2A3CA164F39F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SV.RDW.Apps.MigrationHandlerTests", "SV.RDW.Apps.MigrationHandlerTests\SV.RDW.Apps.MigrationHandlerTests.csproj", "{5C870C45-0B5D-4B65-B7DF-796BDEDE7335}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -71,6 +75,10 @@ Global
 		{B4577809-51BF-4A83-B477-5AF597CC43CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4577809-51BF-4A83-B477-5AF597CC43CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4577809-51BF-4A83-B477-5AF597CC43CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C870C45-0B5D-4B65-B7DF-796BDEDE7335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C870C45-0B5D-4B65-B7DF-796BDEDE7335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C870C45-0B5D-4B65-B7DF-796BDEDE7335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C870C45-0B5D-4B65-B7DF-796BDEDE7335}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,6 +93,7 @@ Global
 		{C4811A1D-5D87-4DB2-B1FF-8734EC3EF956} = {80F87B4C-D842-4C82-A041-945ADE58695E}
 		{CBC5D8CC-8841-415C-8A0E-7E956E7FBED4} = {D88F0352-43C2-48D3-ADF2-D883D309D750}
 		{B4577809-51BF-4A83-B477-5AF597CC43CF} = {D88F0352-43C2-48D3-ADF2-D883D309D750}
+		{5C870C45-0B5D-4B65-B7DF-796BDEDE7335} = {43F04AAB-203F-4983-A1DA-2A3CA164F39F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8775F148-E7E9-425A-93DE-29E947F5E552}
