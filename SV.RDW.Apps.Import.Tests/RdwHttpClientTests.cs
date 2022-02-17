@@ -26,27 +26,25 @@ namespace SV.RDW.Apps.MigrationHandlerTests
             var result = await _sut.GetVehicles(offset, firstAdmission);
 
             // Assert
-            result.Should().NotBeEmpty();
+            result.Should().HaveCount(1000);
 
         }
 
         [Fact]
-		public void GetVehiclesTiming()
+		public async void GetVehiclesTiming()
 		{
-			Action performTestCoversion = async () => await GetVehiclesTimingInternal();
-			performTestCoversion.ExecutionTime().Should().BeLessThanOrEqualTo(100.Milliseconds());
-		}
+            Action performTestCoversion = async () => await GetVehiclesTimingInternal();
+            performTestCoversion.ExecutionTime().Should().BeLessThanOrEqualTo(2000.Milliseconds());
+        }
 
 		private async Task GetVehiclesTimingInternal()
 		{
-            var offset = 0;
             var firstAdmission = new DateTime(2022, 2, 1);
 
             // Act
-            var result = await _sut.GetVehicles(offset, firstAdmission);
+            var result = await _sut.GetVehicles(firstAdmission);
 
-            result.Should().NotBeEmpty();
-
+            result.Should().HaveCount(1272);
         }
     }
 }
