@@ -14,23 +14,29 @@ public class Voertuig
 
     public string datum_tenaamstelling { get; set; }
 
+    public string inrichting { get; set; }
+
+    public string aantal_zitplaatsen { get; set; }
+
+    public string eerste_kleur { get; set; }
+
+    public string massa_ledig_voertuig { get; set; }
+
+    public string datum_eerste_toelating { get; set; }
 
 }
 /*
 
+Overige kolommen
+
 "bruto_bpm": "4955",
-"inrichting": "stationwagen",
-"aantal_zitplaatsen": "5",
-"eerste_kleur": "ROOD",
 "tweede_kleur": "Niet geregistreerd",
 "aantal_cilinders": "4",
 "cilinderinhoud": "1998",
-"massa_ledig_voertuig": "1366",
 "toegestane_maximum_massa_voertuig": "1965",
 "massa_rijklaar": "1466",
 "maximum_massa_trekken_ongeremd": "600",
 "maximum_trekken_massa_geremd": "1300",
-"datum_eerste_toelating": "20200103",
 "datum_eerste_afgifte_nederland": "20200103",
 "wacht_op_keuren": "Geen verstrekking in Open Data",
 "catalogusprijs": "37230",

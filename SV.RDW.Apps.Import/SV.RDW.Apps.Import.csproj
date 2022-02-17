@@ -21,6 +21,9 @@
     <ProjectReference Include="..\SV.RDW.Migrations.MySQL\SV.RDW.Migrations.MySQL.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Update="local.settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="host.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
