@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SV.RDW.Data.Entities\SV.RDW.Data.Entities.csproj" />
+  </ItemGroup>
+
 </Project>

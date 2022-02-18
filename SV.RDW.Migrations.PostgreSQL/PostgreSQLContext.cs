@@ -7,6 +7,7 @@ public class PostgreSQLContext : BaseContext
 {
 	public PostgreSQLContext(DbContextOptions<PostgreSQLContext> options) : base(options)
 	{
+		
 	}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -15,12 +15,8 @@ using System.Threading.Tasks;
 
 namespace SV.RDW.Apps.Import
 {
-    public class ImportFunction
+    public class AzureFunction
     {
-
-        // Dit moeten we ergens bij gaan houden waar we gebleven waren
-        private DateTime _firstAdmissionDate = new DateTime(2022, 1, 3);
-
         [FunctionName("ImportFunction")]
         public async Task Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, ILogger log)
         {
@@ -40,10 +36,20 @@ namespace SV.RDW.Apps.Import
                        })
                        .BuildServiceProvider();
 
+            var pgContext = serviceProvider.GetRequiredService<PostgreSQLContext>();
+            var myContext = serviceProvider.GetRequiredService<MySQLContext>();
 
-            var vehicles = await new RdwHttpClient().GetVehicles(_firstAdmissionDate);
+            var pgRoutine = new ImportRoutine(pgContext);
+            var pgCount = await pgRoutine.Run();
+            var myRoutine = new ImportRoutine(myContext);
+            var myCount = await myRoutine.Run();
 
-            // await _context.Voertuigen.AddRangeAsync(vehicles);
+            log.LogInformation($"PostgreSQL import aantal: {pgCount}");
+            log.LogMetric("PostgreSQL.Import", pgCount);
+
+            log.LogInformation($"MySQL import aantal: {myCount}");
+            log.LogMetric("MySQL.Import", myCount);
+
         }
     }
 }

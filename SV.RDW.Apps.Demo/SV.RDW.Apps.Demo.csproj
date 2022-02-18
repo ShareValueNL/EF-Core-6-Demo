@@ -29,6 +29,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\SV.RDW.Apps.Import\SV.RDW.Apps.Import.csproj" />
 	  <ProjectReference Include="..\SV.RDW.Data.Entities\SV.RDW.Data.Entities.csproj" />
 	  <ProjectReference Include="..\SV.RDW.Data.Layer\SV.RDW.Data.Layer.csproj" />
 	  <ProjectReference Include="..\SV.RDW.Migrations.MySQL\SV.RDW.Migrations.MySQL.csproj" />

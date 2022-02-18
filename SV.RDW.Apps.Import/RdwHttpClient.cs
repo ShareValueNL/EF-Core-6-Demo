@@ -44,7 +44,8 @@ namespace SV.RDW.Apps.Import
             PropertyInfo[] propertyInfos = typeof(Voertuig).GetProperties();
             var select = string.Join(",", propertyInfos.Select(x => x.Name));
 
-            var response = await GetAsync($"m9d7-ebf2.json?$select={select}&$limit={_limit}&$offset={offset}&datum_eerste_toelating={firstAdmission:yyyyMMdd}");
+            var url = $"m9d7-ebf2.json?$select={select}&$limit={_limit}&$offset={offset}&datum_eerste_toelating={firstAdmission:yyyyMMdd}";
+            var response = await GetAsync(url);
             var result = await response.Content.ReadFromJsonAsync<List<Voertuig>>();
             
             return result;

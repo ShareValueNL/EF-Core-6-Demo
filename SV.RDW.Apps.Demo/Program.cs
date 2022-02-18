@@ -6,6 +6,7 @@ using Serilog.Sinks.SystemConsole.Themes;
 using SV.RDW.Migrations.MySQL;
 using SV.RDW.Migrations.PostgreSQL;
 using Pomelo.EntityFrameworkCore.MySql.Storage;
+using SV.RDW.Apps.Import;
 
 using var log = new LoggerConfiguration()
     .WriteTo.Console(
@@ -33,18 +34,14 @@ var serviceProvider = new ServiceCollection()
            .BuildServiceProvider();
 
 var pgContext = serviceProvider.GetRequiredService<PostgreSQLContext>();
-pgContext.Merken.Add(new SV.RDW.Data.Entities.Merk
-{
-    Id = 2,
-    Naam = "Volvo"
-});
-await pgContext.SaveChangesAsync();
-
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 var myContext = serviceProvider.GetRequiredService<MySQLContext>();
-myContext.Merken.Add(new SV.RDW.Data.Entities.Merk
-{
-    Id = 2,
-    Naam = "Volvo"
-});
-await myContext.SaveChangesAsync();
+
+var pgRoutine = new ImportRoutine(pgContext);
+var pgCount = await pgRoutine.Run();
+var myRoutine = new ImportRoutine(myContext);
+var myCount = await myRoutine.Run();
+
+Log.Information($"PostgreSQL import aantal: {pgCount}");
+Log.Information($"MySQL import aantal: {myCount}");
 Log.Information("Done");
