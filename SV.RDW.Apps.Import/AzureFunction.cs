@@ -18,7 +18,7 @@ namespace SV.RDW.Apps.Import
     public class AzureFunction
     {
         [FunctionName("ImportFunction")]
-        public async Task Run([TimerTrigger("0 */5 * * * *")]TimerInfo myTimer, ILogger log)
+        public async Task Run([TimerTrigger("0 */30 * * * *")]TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"Timer trigger function executed at: {DateTime.Now}");
 
