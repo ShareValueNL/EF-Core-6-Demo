@@ -24,7 +24,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SV.RDW.Apps.Import\SV.RDW.Apps.Import.csproj" />
-    <ProjectReference Include="..\SV.RDW.Data.Entities.ImportJson\SV.RDW.Data.Entities.ImportJson.csproj" />
   </ItemGroup>
 
 </Project>

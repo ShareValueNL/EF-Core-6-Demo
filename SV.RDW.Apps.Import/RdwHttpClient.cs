@@ -1,6 +1,7 @@
 ﻿using SV.RDW.Data.Entities.ImportJson;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -47,6 +48,18 @@ namespace SV.RDW.Apps.Import
             var result = await response.Content.ReadFromJsonAsync<List<Voertuig>>();
             
             return result;
+        }
+
+        public async Task<KeyValuePair<decimal, List<Voertuig>>> GetVehiclesWithTiming(DateTime date)
+        {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
+            var vehicles = await GetVehicles(date);
+
+            stopwatch.Stop();
+
+            return new KeyValuePair<decimal, List<Voertuig>>((decimal)stopwatch.Elapsed.TotalSeconds, vehicles);
         }
     }
 }
