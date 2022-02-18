@@ -19,6 +19,7 @@
     <ProjectReference Include="..\SV.RDW.Data.Entities.Import\SV.RDW.Data.Entities.ImportJson.csproj" />
     <ProjectReference Include="..\SV.RDW.Data.Entities\SV.RDW.Data.Entities.csproj" />
     <ProjectReference Include="..\SV.RDW.Migrations.MySQL\SV.RDW.Migrations.MySQL.csproj" />
+    <ProjectReference Include="..\SV.RDW.Migrations.PostgreSQL\SV.RDW.Migrations.PostgreSQL.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="local.settings.json">
