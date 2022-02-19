@@ -32,11 +32,12 @@ namespace SV.RDW.Apps.Import
                        .AddNpgsql<PostgreSQLContext>(connectionStringPostgres)
                        .AddDbContext<MySQLContext>(options =>
                        {
-                           options.UseMySql(ServerVersion.AutoDetect(connectionStringMySql));
+                           options.UseMySql(connectionStringMySql, ServerVersion.AutoDetect(connectionStringMySql));
                        })
                        .BuildServiceProvider();
 
             var pgContext = serviceProvider.GetRequiredService<PostgreSQLContext>();
+            AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
             var myContext = serviceProvider.GetRequiredService<MySQLContext>();
 
             var pgRoutine = new ImportRoutine(pgContext);
