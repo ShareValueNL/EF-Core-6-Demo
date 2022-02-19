@@ -47,6 +47,7 @@ namespace SV.RDW.Apps.Import
                     Log.Information($"Importeren van dag {importdate}");
                     var timer = DateTime.Now;
                     var vehicles = await rdwClient.GetVehicles(importdate);
+                    vehicles = vehicles.Where(x => x.merk != null).ToList();
                     var merken = vehicles.GetMerken();
                     Log.Information($"{merken.Count()} merken gevonden.");
                     await SaveMerken(merken);
@@ -86,7 +87,7 @@ namespace SV.RDW.Apps.Import
         protected async Task SaveMerken(IEnumerable<string> merken) 
         {
             var i = 0;
-            foreach(var merk in merken)
+            foreach (var merk in merken)
             {
                 if (_baseContext.Merken.All(x => x.Naam != merk.ToUpper()))
                 {
