@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using SV.RDW.Data.Entities;
 using SV.RDW.Data.Entities.ImportJson;
 using SV.RDW.Data.Layer;
@@ -32,6 +34,8 @@ namespace SV.RDW.Apps.Import
 
             var importdate = DateTime.Today.AddDays(-7);
 
+            Log.Information($"Starten import op {importdate}");
+
             while (DateTime.Now.Subtract(runtimer).TotalMinutes <= 2)
             {
                 if (_baseContext.Imports.Any(x => x.EersteToelatingDatum == importdate))
@@ -40,32 +44,40 @@ namespace SV.RDW.Apps.Import
                 }
                 else
                 {
+                    Log.Information($"Importeren van dag {importdate}");
                     var timer = DateTime.Now;
                     var vehicles = await rdwClient.GetVehicles(importdate);
                     var merken = vehicles.GetMerken();
+                    Log.Information($"{merken.Count()} merken gevonden.");
                     await SaveMerken(merken);
                     var soorten = vehicles.GetVoertuigSoorten();
+                    Log.Information($"{soorten.Count()} voertuigsoorten gevonden.");
                     await SaveVoertuigSoorten(soorten);
                     var handelsbenamingen = vehicles.GetHandelsbenamingen();
+                    Log.Information($"{handelsbenamingen.Count()} handelsbenamingen gevonden.");
                     await SaveHandelsbenamingen(handelsbenamingen);
-
+                    Log.Information($"{vehicles.Count} voertuigen om te importeren.");
+                    Log.Information("Nu worden de voertuigen opgeslagen in de database.");
                     var voertuigen = await SaveVoertuigen(vehicles);
 
+                    var tijd = Convert.ToDecimal(DateTime.Now.Subtract(timer).TotalSeconds);
                     await _baseContext.Imports.AddAsync(new Data.Entities.Import
                     {
                         Id = 0,
                         EersteToelatingDatum = importdate,
-                        ImportSeconden = Convert.ToDecimal(DateTime.Now.Subtract(timer).TotalSeconds),
+                        ImportSeconden = tijd,
                         TotaalImport = voertuigen.Count(),
                         Voertuigen = voertuigen.ToHashSet<Data.Entities.Voertuig>()
                     });
                     await _baseContext.SaveChangesAsync();
 
+                    Log.Information($"{tijd} seconden bezig geweest.");
                     counter += voertuigen.Count();
 
                     importdate = importdate.AddDays(-1);
                 }
             }
+            Log.Information("Tijd is op.");
 
             rdwClient.Dispose();
             return counter;
@@ -73,6 +85,7 @@ namespace SV.RDW.Apps.Import
 
         protected async Task SaveMerken(IEnumerable<string> merken) 
         {
+            var i = 0;
             foreach(var merk in merken)
             {
                 if (_baseContext.Merken.All(x => x.Naam != merk.ToUpper()))
@@ -82,13 +95,16 @@ namespace SV.RDW.Apps.Import
                         Id = 0,
                         Naam = merk.ToUpper()
                     });
+                    i++;
                 }
             }
             await _baseContext.SaveChangesAsync();
+            Log.Information($"{i} nieuwe merken gevonden en opgeslagen");
         }
         
         protected async Task SaveVoertuigSoorten(IEnumerable<string> voertuigsoorten)
         {
+            var i = 0;
             foreach(var voertuigsoort in voertuigsoorten)
             {
                 if (_baseContext.VoertuigSoorten.All(x => x.Naam != voertuigsoort))
@@ -98,28 +114,36 @@ namespace SV.RDW.Apps.Import
                         Id = 0,
                         Naam = voertuigsoort
                     });
+                    i++;
                 }
             }
             await _baseContext.SaveChangesAsync();
+            Log.Information($"{i} nieuwe voertuigsoorten gevonden en opgeslagen");
         }
 
         protected async Task SaveHandelsbenamingen(IEnumerable<(string merk, string handelsbenaming)> handelsbenamingen)
         {
+            var i = 0;
             var table = _baseContext.Handelsbenamingen.Include(x => x.Merk);
             foreach(var (merk, handelsbenaming) in handelsbenamingen)
             {
-                if (!table.Any(x => x.Naam == handelsbenaming.ToUpper() && x.Merk.Naam == merk.ToUpper()))
+                if (!string.IsNullOrEmpty(handelsbenaming))
                 {
-                    var merkEntity = _baseContext.Merken.Single(x => x.Naam == merk.ToUpper());
-                    await _baseContext.Handelsbenamingen.AddAsync(new Handelsbenaming
+                    if (!table.Any(x => x.Naam == handelsbenaming.ToUpper() && x.Merk.Naam == merk.ToUpper()))
                     {
-                        Id = 0,
-                        Naam = handelsbenaming.ToUpper(),
-                        MerkId = merkEntity.Id
-                    });
+                        var merkEntity = _baseContext.Merken.Single(x => x.Naam == merk.ToUpper());
+                        await _baseContext.Handelsbenamingen.AddAsync(new Handelsbenaming
+                        {
+                            Id = 0,
+                            Naam = handelsbenaming.ToUpper(),
+                            MerkId = merkEntity.Id
+                        });
+                        i++;
+                    }
                 }
             }
             await _baseContext.SaveChangesAsync();
+            Log.Information($"{i} nieuwe handelsbenamingen gevonden en opgeslagen");
         }
 
         protected async Task<IEnumerable<Data.Entities.Voertuig>> SaveVoertuigen(IEnumerable<Data.Entities.ImportJson.Voertuig> voertuigen)
@@ -128,7 +152,11 @@ namespace SV.RDW.Apps.Import
             foreach(var voertuigImport in voertuigen)
             {
                 var merkId = _baseContext.Merken.Single(x => x.Naam == voertuigImport.merk.ToUpper()).Id;
-                var handelsbenamingId = _baseContext.Handelsbenamingen.SingleOrDefault(x => x.Naam == voertuigImport.handelsbenaming.ToUpper() && x.MerkId == merkId)?.Id;
+                int? handelsbenamingId = null;
+                if (voertuigImport.handelsbenaming != null)
+                {
+                    handelsbenamingId = _baseContext.Handelsbenamingen.SingleOrDefault(x => x.Naam == voertuigImport.handelsbenaming.ToUpper() && x.MerkId == merkId)?.Id;
+                }
                 var voertuigSoortId = _baseContext.VoertuigSoorten.SingleOrDefault(x => x.Naam == voertuigImport.voertuigsoort)?.Id;
                 _ = decimal.TryParse(voertuigImport.massa_ledig_voertuig, out var massaLedig);
 

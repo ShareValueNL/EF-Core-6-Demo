@@ -3,10 +3,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
+using SV.RDW.Apps.Import;
 using SV.RDW.Migrations.MySQL;
 using SV.RDW.Migrations.PostgreSQL;
-using Pomelo.EntityFrameworkCore.MySql.Storage;
-using SV.RDW.Apps.Import;
 
 using var log = new LoggerConfiguration()
     .WriteTo.Console(
@@ -20,7 +19,7 @@ Log.Information("EF Core 6 Demo");
 
 var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true);
 var config = builder.Build();
-string connectionStringPostgres = config["ConnectionStrings:Postgres"];
+string connectionStringPostgres = config["ConnectionStrings:postgres"];
 string connectionStringMySql = config["ConnectionStrings:mysql"];
 
 
