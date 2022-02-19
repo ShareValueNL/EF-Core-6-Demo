@@ -55,7 +55,7 @@ namespace SV.RDW.Apps.Import
                     {
                         Id = 0,
                         EersteToelatingDatum = importdate,
-                        ImportSeconden = Convert.ToDecimal(DateTime.UtcNow.Subtract(timer).TotalSeconds),
+                        ImportSeconden = Convert.ToDecimal(DateTime.Now.Subtract(timer).TotalSeconds),
                         TotaalImport = voertuigen.Count(),
                         Voertuigen = voertuigen.ToHashSet<Data.Entities.Voertuig>()
                     });
