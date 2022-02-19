@@ -4,6 +4,8 @@
 public class VoertuigSoort
 {
 
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
     public string Naam { get; set; } = null!;

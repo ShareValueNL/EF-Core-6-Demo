@@ -4,19 +4,21 @@
 public class Voertuig
 {
 
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
     [MaxLength(10)]
     public string Kenteken { get; set; } = null!;
 
-    public int VoertuigSoortId { get; set; }
-    public VoertuigSoort VoertuigSoort { get; set; } = null!;
+    public int? VoertuigSoortId { get; set; }
+    public VoertuigSoort? VoertuigSoort { get; set; } = null!;
 
     public int MerkId { get; set; }
     public Merk Merk { get; set; } = null!;
 
-    public int HandelsbenamingId { get; set; }
-    public Handelsbenaming Handelsbenaming { get; set; } = null!;
+    public int? HandelsbenamingId { get; set; }
+    public Handelsbenaming? Handelsbenaming { get; set; } = null!;
 
     public DateTime? VervalDatumAPK { get; set; }
 
@@ -32,7 +34,7 @@ public class Voertuig
 
     public decimal? MassaLedig { get; set; }
 
-    public int ImportId { get; set; }
-    public Import Import { get; set; } = null!;
+    public int? ImportId { get; set; }
+    public Import? Import { get; set; }
 
 }

@@ -5,7 +5,6 @@ using SV.RDW.Data.Layer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace SV.RDW.Apps.Import
@@ -54,6 +53,7 @@ namespace SV.RDW.Apps.Import
 
                     await _baseContext.Imports.AddAsync(new Data.Entities.Import
                     {
+                        Id = 0,
                         EersteToelatingDatum = importdate,
                         ImportSeconden = Convert.ToDecimal(DateTime.UtcNow.Subtract(timer).TotalSeconds),
                         TotaalImport = voertuigen.Count(),
@@ -75,11 +75,12 @@ namespace SV.RDW.Apps.Import
         {
             foreach(var merk in merken)
             {
-                if (_baseContext.Merken.All(x => x.Naam != merk))
+                if (_baseContext.Merken.All(x => x.Naam != merk.ToUpper()))
                 {
                     await _baseContext.Merken.AddAsync(new Merk
                     {
-                        Naam = merk
+                        Id = 0,
+                        Naam = merk.ToUpper()
                     });
                 }
             }
@@ -94,6 +95,7 @@ namespace SV.RDW.Apps.Import
                 {
                     await _baseContext.VoertuigSoorten.AddAsync(new VoertuigSoort
                     {
+                        Id = 0,
                         Naam = voertuigsoort
                     });
                 }
@@ -106,12 +108,13 @@ namespace SV.RDW.Apps.Import
             var table = _baseContext.Handelsbenamingen.Include(x => x.Merk);
             foreach(var (merk, handelsbenaming) in handelsbenamingen)
             {
-                if (table.All(x => x.Naam != handelsbenaming && x.Merk.Naam != merk))
+                if (!table.Any(x => x.Naam == handelsbenaming.ToUpper() && x.Merk.Naam == merk.ToUpper()))
                 {
-                    var merkEntity = _baseContext.Merken.Single(x => x.Naam == merk);
+                    var merkEntity = _baseContext.Merken.Single(x => x.Naam == merk.ToUpper());
                     await _baseContext.Handelsbenamingen.AddAsync(new Handelsbenaming
                     {
-                        Naam = handelsbenaming,
+                        Id = 0,
+                        Naam = handelsbenaming.ToUpper(),
                         MerkId = merkEntity.Id
                     });
                 }
@@ -124,9 +127,10 @@ namespace SV.RDW.Apps.Import
             var list = new List<Data.Entities.Voertuig>();
             foreach(var voertuigImport in voertuigen)
             {
-                var merkId = _baseContext.Merken.Single(x => x.Naam == voertuigImport.merk).Id;
-                var handelsbenamingId = _baseContext.Handelsbenamingen.Single(x => x.Naam == voertuigImport.handelsbenaming && x.MerkId == merkId).Id;
-                var voertuigSoortId = _baseContext.VoertuigSoorten.Single(x => x.Naam == voertuigImport.voertuigsoort).Id;
+                var merkId = _baseContext.Merken.Single(x => x.Naam == voertuigImport.merk.ToUpper()).Id;
+                var handelsbenamingId = _baseContext.Handelsbenamingen.SingleOrDefault(x => x.Naam == voertuigImport.handelsbenaming.ToUpper() && x.MerkId == merkId)?.Id;
+                var voertuigSoortId = _baseContext.VoertuigSoorten.SingleOrDefault(x => x.Naam == voertuigImport.voertuigsoort)?.Id;
+                _ = decimal.TryParse(voertuigImport.massa_ledig_voertuig, out var massaLedig);
 
                 var voertuig = new Data.Entities.Voertuig
                 {
@@ -134,12 +138,12 @@ namespace SV.RDW.Apps.Import
                     Inrichting = voertuigImport.inrichting,
                     Kenteken = voertuigImport.kenteken,
                     Kleur = voertuigImport.eerste_kleur,
-                    MassaLedig = decimal.Parse(voertuigImport.massa_ledig_voertuig),
+                    MassaLedig = massaLedig,
                     Tenaamstelling = GetDatum(voertuigImport.datum_tenaamstelling),
                     VervalDatumAPK = GetDatum(voertuigImport.vervaldatum_apk),
                     MerkId = merkId,
                     HandelsbenamingId = handelsbenamingId,
-                    VoertuigSoortId = voertuigSoortId
+                    VoertuigSoortId = voertuigSoortId,
                 };
                 _baseContext.Voertuigen.Add(voertuig);
                 list.Add(voertuig);
@@ -150,7 +154,7 @@ namespace SV.RDW.Apps.Import
 
         private DateTime GetDatum(string datum)
         {
-            if (datum.Length != 8)
+            if (datum is null || datum.Length != 8)
             {
                 return DateTime.MinValue;
             }

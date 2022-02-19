@@ -2,38 +2,45 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using SV.RDW.Migrations.MySQL;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using SV.RDW.Migrations.PostgreSQL;
 
 #nullable disable
 
-namespace SV.RDW.Migrations.MySQL.Migrations
+namespace SV.RDW.Migrations.PostgreSQL.Migrations
 {
-    [DbContext(typeof(MySQLContext))]
-    partial class MySQLContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(PostgreSQLContext))]
+    [Migration("20220219125452_MeerNullFKs")]
+    partial class MeerNullFKs
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "6.0.2")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("SV.RDW.Data.Entities.Handelsbenaming", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<int>("MerkId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("merkId");
 
                     b.Property<string>("Naam")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("naam");
 
                     b.HasKey("Id");
@@ -47,19 +54,21 @@ namespace SV.RDW.Migrations.MySQL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<DateTime>("EersteToelatingDatum")
-                        .HasColumnType("DATE")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("eersteToelatingDatum");
 
                     b.Property<decimal>("ImportSeconden")
-                        .HasColumnType("decimal(65,30)")
+                        .HasColumnType("numeric")
                         .HasColumnName("importSeconden");
 
                     b.Property<int>("TotaalImport")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("totaalImport");
 
                     b.HasKey("Id");
@@ -71,13 +80,15 @@ namespace SV.RDW.Migrations.MySQL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Naam")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("naam");
 
                     b.HasKey("Id");
@@ -89,57 +100,59 @@ namespace SV.RDW.Migrations.MySQL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("id");
 
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
                     b.Property<DateTime>("EersteToelating")
-                        .HasColumnType("DATE")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("eersteToelating");
 
                     b.Property<int?>("HandelsbenamingId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("handelsbenamingId");
 
                     b.Property<int?>("ImportId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("importId");
 
                     b.Property<string>("Inrichting")
                         .HasMaxLength(50)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("inrichting");
 
                     b.Property<string>("Kenteken")
                         .IsRequired()
                         .HasMaxLength(10)
-                        .HasColumnType("varchar(10)")
+                        .HasColumnType("character varying(10)")
                         .HasColumnName("kenteken");
 
                     b.Property<string>("Kleur")
                         .HasMaxLength(50)
                         .IsUnicode(false)
-                        .HasColumnType("varchar(50)")
+                        .HasColumnType("character varying(50)")
                         .HasColumnName("kleur")
                         .HasComment("Hier staat de kleur.");
 
                     b.Property<decimal?>("MassaLedig")
-                        .HasColumnType("decimal(65,30)")
+                        .HasColumnType("numeric")
                         .HasColumnName("massaLedig");
 
                     b.Property<int>("MerkId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("merkId");
 
                     b.Property<DateTime>("Tenaamstelling")
-                        .HasColumnType("DATE")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("tenaamstelling");
 
                     b.Property<DateTime?>("VervalDatumAPK")
-                        .HasColumnType("DATE")
+                        .HasColumnType("timestamp with time zone")
                         .HasColumnName("vervalDatumAPK");
 
                     b.Property<int?>("VoertuigSoortId")
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("voertuigSoortId");
 
                     b.HasKey("Id");
@@ -159,12 +172,14 @@ namespace SV.RDW.Migrations.MySQL.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
+                        .HasColumnType("integer")
                         .HasColumnName("id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Naam")
                         .IsRequired()
-                        .HasColumnType("longtext")
+                        .HasColumnType("text")
                         .HasColumnName("naam");
 
                     b.HasKey("Id");

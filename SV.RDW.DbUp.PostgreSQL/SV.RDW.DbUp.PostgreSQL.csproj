@@ -8,11 +8,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Remove="appsettings.json" />
-	  <None Remove="Scripts\20220215205220_Initieel.sql" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Content Include="appsettings.json">
 	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 	  </Content>
@@ -20,6 +15,8 @@
 
 	<ItemGroup>
 	  <EmbeddedResource Include="Scripts\20220215205220_Initieel.sql" />
+	  <EmbeddedResource Include="Scripts\20220219120337_ImportVoertuigenFK.sql" />
+	  <EmbeddedResource Include="Scripts\20220219125452_MeerNullFKs.sql" />
 	</ItemGroup>
 
 	<ItemGroup>

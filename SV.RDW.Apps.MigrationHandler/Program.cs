@@ -24,9 +24,9 @@ public class Startup
         string connectionStringMySql = config["ConnectionStrings:mysql"];
 
         services.AddDbContext<PostgreSQLContext>(options =>
-        {
-            options.UseNpgsql(connectionStringPostgres);
-        });
+            {
+                options.UseNpgsql(connectionStringPostgres);
+            });
         services.AddDbContext<MySQLContext>(options =>
            {
                options.UseMySql(ServerVersion.AutoDetect(connectionStringMySql));

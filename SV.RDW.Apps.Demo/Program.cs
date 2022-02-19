@@ -42,6 +42,6 @@ var pgCount = await pgRoutine.Run();
 var myRoutine = new ImportRoutine(myContext);
 var myCount = await myRoutine.Run();
 
-Log.Information($"PostgreSQL import aantal: {pgCount}");
+//Log.Information($"PostgreSQL import aantal: {pgCount}");
 Log.Information($"MySQL import aantal: {myCount}");
 Log.Information("Done");

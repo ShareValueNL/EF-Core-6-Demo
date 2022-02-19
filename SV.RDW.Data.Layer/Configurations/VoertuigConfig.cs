@@ -4,7 +4,7 @@ internal class VoertuigConfig : IEntityTypeConfiguration<Voertuig>
 {
 	public void Configure(EntityTypeBuilder<Voertuig> builder)
 	{
-		builder.HasKey(e => e.Id);
+		builder.Property(p => p.Id).ValueGeneratedOnAdd();
 
 		builder.Property(e => e.Kleur)
 			.HasMaxLength(50)

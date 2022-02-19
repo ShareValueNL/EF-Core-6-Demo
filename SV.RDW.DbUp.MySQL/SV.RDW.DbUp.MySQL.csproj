@@ -8,10 +8,18 @@
 	</PropertyGroup>
 
 	<ItemGroup>
+	  <Content Include="appsettings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
 	  <EmbeddedResource Include="Program.cs">
 	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
 	  </EmbeddedResource>
 	  <EmbeddedResource Include="Scripts\20220214204019_Initieel.sql" />
+	  <EmbeddedResource Include="Scripts\20220219112632_ImportVoertuigenFK.sql" />
+	  <EmbeddedResource Include="Scripts\20220219125331_MeerNullFKs.sql" />
 	</ItemGroup>
 
 	<ItemGroup>

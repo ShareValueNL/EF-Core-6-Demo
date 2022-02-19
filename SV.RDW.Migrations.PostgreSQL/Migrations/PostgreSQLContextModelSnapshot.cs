@@ -22,7 +22,7 @@ namespace SV.RDW.Migrations.PostgreSQL.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("SV.RDW.Entities.Handelsbenaming", b =>
+            modelBuilder.Entity("SV.RDW.Data.Entities.Handelsbenaming", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -48,7 +48,7 @@ namespace SV.RDW.Migrations.PostgreSQL.Migrations
                     b.ToTable("handelsbenamingen");
                 });
 
-            modelBuilder.Entity("SV.RDW.Entities.Import", b =>
+            modelBuilder.Entity("SV.RDW.Data.Entities.Import", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,7 +74,7 @@ namespace SV.RDW.Migrations.PostgreSQL.Migrations
                     b.ToTable("imports");
                 });
 
-            modelBuilder.Entity("SV.RDW.Entities.Merk", b =>
+            modelBuilder.Entity("SV.RDW.Data.Entities.Merk", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -94,7 +94,7 @@ namespace SV.RDW.Migrations.PostgreSQL.Migrations
                     b.ToTable("merken");
                 });
 
-            modelBuilder.Entity("SV.RDW.Entities.Voertuig", b =>
+            modelBuilder.Entity("SV.RDW.Data.Entities.Voertuig", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -107,11 +107,11 @@ namespace SV.RDW.Migrations.PostgreSQL.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("eersteToelating");
 
-                    b.Property<int>("HandelsbenamingId")
+                    b.Property<int?>("HandelsbenamingId")
                         .HasColumnType("integer")
                         .HasColumnName("handelsbenamingId");
 
-                    b.Property<int>("ImportId")
+                    b.Property<int?>("ImportId")
                         .HasColumnType("integer")
                         .HasColumnName("importId");
 
@@ -149,7 +149,7 @@ namespace SV.RDW.Migrations.PostgreSQL.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("vervalDatumAPK");
 
-                    b.Property<int>("VoertuigSoortId")
+                    b.Property<int?>("VoertuigSoortId")
                         .HasColumnType("integer")
                         .HasColumnName("voertuigSoortId");
 
@@ -166,7 +166,7 @@ namespace SV.RDW.Migrations.PostgreSQL.Migrations
                     b.ToTable("voertuigen");
                 });
 
-            modelBuilder.Entity("SV.RDW.Entities.VoertuigSoort", b =>
+            modelBuilder.Entity("SV.RDW.Data.Entities.VoertuigSoort", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -185,9 +185,9 @@ namespace SV.RDW.Migrations.PostgreSQL.Migrations
                     b.ToTable("voertuigSoorten");
                 });
 
-            modelBuilder.Entity("SV.RDW.Entities.Handelsbenaming", b =>
+            modelBuilder.Entity("SV.RDW.Data.Entities.Handelsbenaming", b =>
                 {
-                    b.HasOne("SV.RDW.Entities.Merk", "Merk")
+                    b.HasOne("SV.RDW.Data.Entities.Merk", "Merk")
                         .WithMany("Handelsbenamingen")
                         .HasForeignKey("MerkId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -196,31 +196,25 @@ namespace SV.RDW.Migrations.PostgreSQL.Migrations
                     b.Navigation("Merk");
                 });
 
-            modelBuilder.Entity("SV.RDW.Entities.Voertuig", b =>
+            modelBuilder.Entity("SV.RDW.Data.Entities.Voertuig", b =>
                 {
-                    b.HasOne("SV.RDW.Entities.Handelsbenaming", "Handelsbenaming")
+                    b.HasOne("SV.RDW.Data.Entities.Handelsbenaming", "Handelsbenaming")
                         .WithMany("Voertuigen")
-                        .HasForeignKey("HandelsbenamingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("HandelsbenamingId");
 
-                    b.HasOne("SV.RDW.Entities.Import", "Import")
+                    b.HasOne("SV.RDW.Data.Entities.Import", "Import")
                         .WithMany("Voertuigen")
-                        .HasForeignKey("ImportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ImportId");
 
-                    b.HasOne("SV.RDW.Entities.Merk", "Merk")
+                    b.HasOne("SV.RDW.Data.Entities.Merk", "Merk")
                         .WithMany("Voertuigen")
                         .HasForeignKey("MerkId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SV.RDW.Entities.VoertuigSoort", "VoertuigSoort")
+                    b.HasOne("SV.RDW.Data.Entities.VoertuigSoort", "VoertuigSoort")
                         .WithMany("Voertuigen")
-                        .HasForeignKey("VoertuigSoortId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("VoertuigSoortId");
 
                     b.Navigation("Handelsbenaming");
 
@@ -231,24 +225,24 @@ namespace SV.RDW.Migrations.PostgreSQL.Migrations
                     b.Navigation("VoertuigSoort");
                 });
 
-            modelBuilder.Entity("SV.RDW.Entities.Handelsbenaming", b =>
+            modelBuilder.Entity("SV.RDW.Data.Entities.Handelsbenaming", b =>
                 {
                     b.Navigation("Voertuigen");
                 });
 
-            modelBuilder.Entity("SV.RDW.Entities.Import", b =>
+            modelBuilder.Entity("SV.RDW.Data.Entities.Import", b =>
                 {
                     b.Navigation("Voertuigen");
                 });
 
-            modelBuilder.Entity("SV.RDW.Entities.Merk", b =>
+            modelBuilder.Entity("SV.RDW.Data.Entities.Merk", b =>
                 {
                     b.Navigation("Handelsbenamingen");
 
                     b.Navigation("Voertuigen");
                 });
 
-            modelBuilder.Entity("SV.RDW.Entities.VoertuigSoort", b =>
+            modelBuilder.Entity("SV.RDW.Data.Entities.VoertuigSoort", b =>
                 {
                     b.Navigation("Voertuigen");
                 });

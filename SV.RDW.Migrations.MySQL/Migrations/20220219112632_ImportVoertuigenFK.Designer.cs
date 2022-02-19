@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using SV.RDW.Migrations.MySQL;
 
@@ -10,9 +11,10 @@ using SV.RDW.Migrations.MySQL;
 namespace SV.RDW.Migrations.MySQL.Migrations
 {
     [DbContext(typeof(MySQLContext))]
-    partial class MySQLContextModelSnapshot : ModelSnapshot
+    [Migration("20220219112632_ImportVoertuigenFK")]
+    partial class ImportVoertuigenFK
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -96,7 +98,7 @@ namespace SV.RDW.Migrations.MySQL.Migrations
                         .HasColumnType("DATE")
                         .HasColumnName("eersteToelating");
 
-                    b.Property<int?>("HandelsbenamingId")
+                    b.Property<int>("HandelsbenamingId")
                         .HasColumnType("int")
                         .HasColumnName("handelsbenamingId");
 
@@ -138,7 +140,7 @@ namespace SV.RDW.Migrations.MySQL.Migrations
                         .HasColumnType("DATE")
                         .HasColumnName("vervalDatumAPK");
 
-                    b.Property<int?>("VoertuigSoortId")
+                    b.Property<int>("VoertuigSoortId")
                         .HasColumnType("int")
                         .HasColumnName("voertuigSoortId");
 
@@ -187,7 +189,9 @@ namespace SV.RDW.Migrations.MySQL.Migrations
                 {
                     b.HasOne("SV.RDW.Data.Entities.Handelsbenaming", "Handelsbenaming")
                         .WithMany("Voertuigen")
-                        .HasForeignKey("HandelsbenamingId");
+                        .HasForeignKey("HandelsbenamingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("SV.RDW.Data.Entities.Import", "Import")
                         .WithMany("Voertuigen")
@@ -201,7 +205,9 @@ namespace SV.RDW.Migrations.MySQL.Migrations
 
                     b.HasOne("SV.RDW.Data.Entities.VoertuigSoort", "VoertuigSoort")
                         .WithMany("Voertuigen")
-                        .HasForeignKey("VoertuigSoortId");
+                        .HasForeignKey("VoertuigSoortId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Handelsbenaming");
 
