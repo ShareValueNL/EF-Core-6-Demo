@@ -45,9 +45,26 @@ var toppers = new Toppers(mySqlContext, postgresContext);
 var zoeken = new Zoeken(mySqlContext, postgresContext);
 
 char optie = char.MinValue;
+char prevoptie = char.MinValue;
+char repoptie = char.MinValue;
+bool show = true;
+int i = 0;
 do
 {
-    optie = Menu.ToConsole();
+    if (repoptie == char.MinValue)
+    {
+        optie = Menu.ToConsole(show);
+    }
+    else
+    {
+        optie = repoptie;
+        i--;
+        if (i == 0)
+        {
+            repoptie = char.MinValue;
+        }
+    }
+    show = false;
     switch (optie)
     {
         case '1':
@@ -78,15 +95,27 @@ do
             // Bouw query
             zoeken.Query();
             break;
+        case 'M':
+            // Menu
+            show = true;
+            break;
         case 'C':
+            // Scherm leeg
             Console.Clear();
             break;
         case 'Q':
+            // Afsluiten
+            break;
+        case 'R':
+            // Herhalen
+            repoptie = prevoptie;
+            i = 5;
             break;
         default:
             Console.WriteLine("Deze optie bestaat niet. Kies uit het menu.");
             break;
     }
+    prevoptie = optie;
     Console.WriteLine();
 }
 while (optie != 'Q');
