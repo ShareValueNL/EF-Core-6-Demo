@@ -3,9 +3,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using Serilog.Sinks.SystemConsole.Themes;
-using SV.RDW.Apps.Import;
+using SV.RDW.Apps.Demo;
 using SV.RDW.Migrations.MySQL;
 using SV.RDW.Migrations.PostgreSQL;
+using System.Drawing;
 
 using var log = new LoggerConfiguration()
     .WriteTo.Console(
@@ -14,8 +15,11 @@ using var log = new LoggerConfiguration()
     .CreateLogger();
 
 Log.Logger = log;
-Log.Information("ShareValue Tech Thursday - 24 februari 2022");
-Log.Information("EF Core 6 Demo");
+Colorful.Console.ForegroundColor = Color.LightGray;
+Colorful.Console.WriteAscii("ShareValue's");
+Colorful.Console.WriteAscii("Tech Thursday");
+Console.WriteLine("24 februari 2022");
+Console.WriteLine("EF Core 6 Demo");
 
 var builder = new ConfigurationBuilder().AddJsonFile("appsettings.json", true, true);
 var config = builder.Build();
@@ -32,15 +36,59 @@ var serviceProvider = new ServiceCollection()
            })
            .BuildServiceProvider();
 
-var pgContext = serviceProvider.GetRequiredService<PostgreSQLContext>();
+var postgresContext = serviceProvider.GetRequiredService<PostgreSQLContext>();
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
-var myContext = serviceProvider.GetRequiredService<MySQLContext>();
+var mySqlContext = serviceProvider.GetRequiredService<MySQLContext>();
 
-var pgRoutine = new ImportRoutine(pgContext);
-var pgCount = await pgRoutine.Run();
-var myRoutine = new ImportRoutine(myContext);
-var myCount = await myRoutine.Run();
+var totalen = new Totalen(mySqlContext, postgresContext);
+var toppers = new Toppers(mySqlContext, postgresContext);
+var zoeken = new Zoeken(mySqlContext, postgresContext);
 
-//Log.Information($"PostgreSQL import aantal: {pgCount}");
-Log.Information($"MySQL import aantal: {myCount}");
-Log.Information("Done");
+char optie = char.MinValue;
+do
+{
+    optie = Menu.ToConsole();
+    switch (optie)
+    {
+        case '1':
+            // Totaal Count()
+            totalen.Count();
+            break;
+        case '2':
+            // Totaal per maand
+            totalen.TotaalPerMaand();
+            break;
+        case '3':
+            // Verdeling soorten
+            toppers.PerSoort();
+            break;
+        case '4':
+            // Top 10 automerken
+            toppers.Automerken();
+            break;
+        case '5':
+            // Zoek kenteken
+            zoeken.Kenteken();
+            break;
+        case '6':
+            // Zoek merk
+            zoeken.Merk();
+            break;
+        case '7':
+            // Bouw query
+            zoeken.Query();
+            break;
+        case 'C':
+            Console.Clear();
+            break;
+        case 'Q':
+            break;
+        default:
+            Console.WriteLine("Deze optie bestaat niet. Kies uit het menu.");
+            break;
+    }
+    Console.WriteLine();
+}
+while (optie != 'Q');
+
+Console.WriteLine("Applicatie wordt afgesloten.");
