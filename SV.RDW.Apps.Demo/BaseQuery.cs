@@ -15,6 +15,13 @@ internal class BaseQuery
         _postgreSQLContext = postgreSQLContext;
     }
 
+    protected static double Timer(Action p)
+    {
+        var start = DateTime.Now;
+        p.Invoke();
+        return  DateTime.Now.Subtract(start).TotalMilliseconds;
+    }
+
     public void Query()
     {
         Console.Write("Voer de query in:");
