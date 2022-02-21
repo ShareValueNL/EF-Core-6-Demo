@@ -25,10 +25,11 @@ internal class Menu
             style.AddStyle("6 ", Color.Yellow);
             style.AddStyle("7 ", Color.Yellow);
             style.AddStyle("Q ", Color.Yellow);
+            style.AddStyle("25", Color.LightGray);
 
             Colorful.Console.WriteLineStyled("┌──────────────────────────┬──────────────────────────┐", style);
             Colorful.Console.WriteLineStyled("│ 1 - Totaal Count()       │ 2 - Totaal per maand     │", style);
-            Colorful.Console.WriteLineStyled("│ 3 - Verdeling soorten    │ 4 - Top 10 automerken    │", style);
+            Colorful.Console.WriteLineStyled("│ 3 - Verdeling soorten    │ 4 - Top 25 automerken    │", style);
             Colorful.Console.WriteLineStyled("│ 5 - Zoek kenteken        │ 6 - Zoek merk            │", style);
             Colorful.Console.WriteLineStyled("│ 7 - Bouw query           │ Q - Afsluiten            │", style);
             Colorful.Console.WriteLineStyled("└──────────────────────────┴──────────────────────────┘", style);
