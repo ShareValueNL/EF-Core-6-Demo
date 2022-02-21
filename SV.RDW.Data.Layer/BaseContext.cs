@@ -1,6 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Logging;
 using SV.RDW.Data.Entities;
+using System.Diagnostics;
 
 namespace SV.RDW.Data.Layer;
 
@@ -32,7 +34,9 @@ public partial class BaseContext : DbContext
 
 	protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 	{
-		optionsBuilder.EnableSensitiveDataLogging(true);
+		optionsBuilder.EnableSensitiveDataLogging()
+			.EnableDetailedErrors()
+			.LogTo(msg => Debug.WriteLine(msg), LogLevel.Information);
 	}
 
 	protected override void OnModelCreating(ModelBuilder modelBuilder)
