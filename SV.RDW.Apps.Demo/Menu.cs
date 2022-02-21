@@ -17,14 +17,14 @@ internal class Menu
             style.AddStyle("┴", Color.Green);
             style.AddStyle("─", Color.Green);
             style.AddStyle("│", Color.Green);
-            style.AddStyle("1", Color.Yellow);
-            style.AddStyle("2", Color.Yellow);
-            style.AddStyle("3", Color.Yellow);
-            style.AddStyle("4", Color.Yellow);
-            style.AddStyle("5", Color.Yellow);
-            style.AddStyle("6", Color.Yellow);
-            style.AddStyle("7", Color.Yellow);
-            style.AddStyle("Q", Color.Yellow);
+            style.AddStyle("1 ", Color.Yellow);
+            style.AddStyle("2 ", Color.Yellow);
+            style.AddStyle("3 ", Color.Yellow);
+            style.AddStyle("4 ", Color.Yellow);
+            style.AddStyle("5 ", Color.Yellow);
+            style.AddStyle("6 ", Color.Yellow);
+            style.AddStyle("7 ", Color.Yellow);
+            style.AddStyle("Q ", Color.Yellow);
 
             Colorful.Console.WriteLineStyled("┌──────────────────────────┬──────────────────────────┐", style);
             Colorful.Console.WriteLineStyled("│ 1 - Totaal Count()       │ 2 - Totaal per maand     │", style);
