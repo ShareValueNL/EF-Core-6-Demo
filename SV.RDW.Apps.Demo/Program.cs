@@ -65,55 +65,62 @@ do
         }
     }
     show = false;
-    switch (optie)
+    try
     {
-        case '1':
-            // Totaal Count()
-            totalen.Count();
-            break;
-        case '2':
-            // Totaal per maand
-            totalen.TotaalPerMaand();
-            break;
-        case '3':
-            // Verdeling soorten
-            toppers.PerSoort();
-            break;
-        case '4':
-            // Top 10 automerken
-            toppers.Automerken();
-            break;
-        case '5':
-            // Zoek kenteken
-            zoeken.Kenteken();
-            break;
-        case '6':
-            // Zoek merk
-            zoeken.Merk();
-            break;
-        case '7':
-            // Bouw query
-            zoeken.Query();
-            break;
-        case 'M':
-            // Menu
-            show = true;
-            break;
-        case 'C':
-            // Scherm leeg
-            Console.Clear();
-            break;
-        case 'Q':
-            // Afsluiten
-            break;
-        case 'R':
-            // Herhalen
-            repoptie = prevoptie;
-            i = 5;
-            break;
-        default:
-            Console.WriteLine("Deze optie bestaat niet. Kies uit het menu.");
-            break;
+        switch (optie)
+        {
+            case '1':
+                // Totaal Count()
+                totalen.Count();
+                break;
+            case '2':
+                // Totaal per maand
+                totalen.TotaalPerMaand();
+                break;
+            case '3':
+                // Verdeling soorten
+                toppers.PerSoort();
+                break;
+            case '4':
+                // Top 10 automerken
+                toppers.Automerken();
+                break;
+            case '5':
+                // Zoek kenteken
+                zoeken.Kenteken();
+                break;
+            case '6':
+                // Zoek merk
+                zoeken.Merk();
+                break;
+            case '7':
+                // Bouw query
+                zoeken.Query();
+                break;
+            case 'M':
+                // Menu
+                show = true;
+                break;
+            case 'C':
+                // Scherm leeg
+                Console.Clear();
+                break;
+            case 'Q':
+                // Afsluiten
+                break;
+            case 'R':
+                // Herhalen
+                repoptie = prevoptie;
+                i = 5;
+                break;
+            default:
+                Console.WriteLine("Deze optie bestaat niet. Kies uit het menu.");
+                break;
+        }
+    }
+    catch (Exception ex)
+    {
+        Log.Error(ex.Message);
     }
     prevoptie = optie;
     Console.WriteLine();
