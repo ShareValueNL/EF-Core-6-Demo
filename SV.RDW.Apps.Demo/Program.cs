@@ -93,10 +93,6 @@ do
                 // Zoek merk
                 zoeken.Merk();
                 break;
-            case '7':
-                // Bouw query
-                zoeken.Query();
-                break;
             case 'M':
                 // Menu
                 show = true;

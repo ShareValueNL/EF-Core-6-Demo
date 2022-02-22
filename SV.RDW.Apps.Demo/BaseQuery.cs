@@ -1,4 +1,6 @@
-﻿using Serilog;
+﻿using Microsoft.EntityFrameworkCore;
+using Serilog;
+using SV.RDW.Data.Entities;
 using SV.RDW.Migrations.MySQL;
 using SV.RDW.Migrations.PostgreSQL;
 
@@ -22,10 +24,5 @@ internal class BaseQuery
         return  DateTime.Now.Subtract(start).TotalMilliseconds;
     }
 
-    public void Query()
-    {
-        Console.Write("Voer de query in:");
-        var query = Console.ReadLine();
-    }
 }
 
