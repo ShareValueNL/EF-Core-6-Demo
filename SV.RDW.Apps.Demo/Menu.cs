@@ -40,6 +40,49 @@ internal class Menu
         var c = Char.ToUpper(Console.ReadKey().KeyChar);
         Console.ForegroundColor = ConsoleColor.White;
         Console.WriteLine();
+
         return c;
+    }
+
+    public static (string kenteken, char type) ZoekKenteken()
+    {
+        Console.Write("Geef (deel van een kenteken), zonder streepjes: ");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        var kenteken = Console.ReadLine();
+        Console.ForegroundColor = ConsoleColor.White;
+
+        var type = VraagOptie();
+
+        return (kenteken, type);
+    }
+
+    public static (string merk, char type) ZoekMerk()
+    {
+        Console.Write("Geef (deel van een merk): ");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        var merk = Console.ReadLine();
+        Console.ForegroundColor = ConsoleColor.White;
+
+        var type = VraagOptie();
+
+        return (merk, type);
+    }
+
+    private static char VraagOptie()
+    {
+        Console.WriteLine("Opties:");
+        Console.WriteLine("L - Gebruik ToLower");
+        Console.WriteLine("U - Gebruik ToUpper");
+        Console.WriteLine("S - Gebruik StringComparison.InvariantCultureIgnoreCase");
+        Console.WriteLine("I - Gebruik ILIKE (Postgres) / LIKE (MySQL)");
+        Console.WriteLine("C - Gebruik LIKE (Postgres) / Contains (MySQL)");
+        Console.WriteLine("E - Gebruik exact");
+
+        Console.Write("Selecteer optie: ");
+        Console.ForegroundColor = ConsoleColor.Yellow;
+        var type = Char.ToUpper(Console.ReadKey().KeyChar);
+        Console.ForegroundColor = ConsoleColor.White;
+
+        return type;
     }
 }
