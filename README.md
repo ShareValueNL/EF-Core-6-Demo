@@ -16,9 +16,9 @@ https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-6.0/whatsnew
 ## Entity Framework Core 7 (EF7)
 https://devblogs.microsoft.com/dotnet/announcing-the-plan-for-ef7/
 
-**JSON Kolommen**: JSON data in een kolom die vervolgens doorzocht kan worden.
-**Bulk updates**: updaten van regels in de database zonder entities eerst in geheugen te laden
-**Grafische User Interface**: Betere ondersteuning voor Windows Forms en .NET MAUI.
-**Migratie van EF6 naar EF7**: Ontbrekende features uit EF6 (niet te verwarren met EF Core 6) opnemen in EF7
-**Performance**: Net als altijd wordt er gestreefd naar betere performance
+* **JSON Kolommen**: JSON data in een kolom die vervolgens doorzocht kan worden.
+* **Bulk updates**: updaten van regels in de database zonder entities eerst in geheugen te laden
+* **Grafische User Interface**: Betere ondersteuning voor Windows Forms en .NET MAUI.
+* **Migratie van EF6 naar EF7**: Ontbrekende features uit EF6 (niet te verwarren met EF Core 6) opnemen in EF7
+* **Performance**: Net als altijd wordt er gestreefd naar betere performance
 
